@@ -1,4 +1,4 @@
-![CF](http://i.imgur.com/7v5ASc8.png) LAB
+![Seahawks Chat](src/assets/seahawksbackground.jpg) LAB
 =================================================
 
 ## Seahawks Yakker Chat
