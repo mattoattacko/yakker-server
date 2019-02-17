@@ -1,4 +1,4 @@
-![Seahawks Chat](src/assets/seahawksbackground.jpg) LAB
+![Seahawks Chat](src/assets/SeahawksYakker.jpg)
 =================================================
 
 ## Seahawks Yakker Chat
@@ -28,6 +28,8 @@
 * `PORT` - Port Number (localhost:3000)
 * `MONGODB_URI` - URL to the running mongo instance/db
 
+### Bugs
+* Importing the finished code directly to Codesandbox did not yeild the styling I wanted. Currently working on that. 
 
 #### UML
 Link to an image of the UML for your application and response to events
