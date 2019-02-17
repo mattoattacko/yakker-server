@@ -1,4 +1,4 @@
-![Seahawks Chat](src/assets/SeahawksYakker.jpg)
+![Seahawks Chat](src/assets/SeahawksYakker.JPG)
 =================================================
 
 ## Seahawks Yakker Chat
