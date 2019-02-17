@@ -1,43 +1,68 @@
-import React from 'react';
-import io from 'socket.io-client';
+import React from "react";
+import io from "socket.io-client";
 
-const url = 'http://localhost:8080';
-// const url = 'https://js-401-socket-io-server.herokuapp.com';
+const url = "http://localhost:3000";
+// const url = "https://js-401-socket-io-server.herokuapp.com";
+
 const socket = io.connect(url);
 
 class TrollJohn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      typedInput: '',
-      words: [],
-      wordCount: 0,
+      typedInput: "",
+      words: "",
+      wordsHistory: []
     };
-    console.log(this.state.words)
-    socket.on('incoming', payload => this.updateWords(payload));
+
+    socket.on("incoming", payload => this.updateWords(payload));
+    socket.on("history", payload => this.loadHistory(payload));
   }
 
+  componentDidMount() {
+    socket.emit("history");
+  }
+
+  loadHistory = history => {
+    this.setState({ wordsHistory: history });
+  };
+
   updateWords = words => {
-    this.setState({ words: [...this.state.words, words] });
-    this.setState({ wordCount: this.state.wordCount + 1 });
-    console.log(this.state.wordCount);
-    if (this.state.wordCount > 9) {
-        this.state.words.shift();
-    }
+    socket.emit("history");
+    this.setState({
+      words: words
+    });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    socket.emit('troll', this.state.typedInput);
+    socket.emit("text", this.state.typedInput);
   };
 
   handleNewWords = event => {
     this.setState({ typedInput: event.target.value });
   };
 
+  handleDelete = idx => {
+    this.state.wordsHistory.splice(idx, 1);
+    console.log(this.state.wordsHistory);
+    socket.emit("delete", this.state.wordsHistory);
+  };
+
   render() {
     return (
       <>
+        <h2>Newest Message:{this.state.words}</h2>
+        <ul>
+          {this.state.wordsHistory.map((record, idx) => (
+            <li key={idx}>
+              {record}
+              <button onClick={() => this.handleDelete(idx)}>
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
         <form onSubmit={this.handleSubmit}>
           <input
             name="typedInput"
@@ -45,16 +70,6 @@ class TrollJohn extends React.Component {
             onChange={this.handleNewWords}
           />
         </form>
-        <h2>{this.state.words[9]}</h2>
-        <h2>{this.state.words[8]}</h2>
-        <h2>{this.state.words[7]}</h2>
-        <h2>{this.state.words[6]}</h2>
-        <h2>{this.state.words[5]}</h2>
-        <h2>{this.state.words[4]}</h2>
-        <h2>{this.state.words[3]}</h2>
-        <h2>{this.state.words[2]}</h2>
-        <h2>{this.state.words[1]}</h2>
-        <h2>{this.state.words[0]}</h2>
       </>
     );
   }

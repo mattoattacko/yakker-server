@@ -1,0 +1,20 @@
+h2 {
+  color: #69BE28;
+}
+
+header {
+  border-bottom: 1px solid #A5ACAF;
+  color: #69BE28;
+  padding: 0;
+  margin: 1em 0;
+  position: center;
+}
+
+html { 
+  background: url(./assets/seahawksbackground.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+$body-bg: transparent; 
